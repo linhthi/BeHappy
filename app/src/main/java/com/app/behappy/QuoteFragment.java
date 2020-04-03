@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,8 +35,14 @@ public class QuoteFragment extends Fragment {
         String quote = getArguments().getString("quote");
         String author = getArguments().getString("author");
 
+        int colors[] = new int[] {R.color.pink_900 , R.color.green_400,
+        R.color.lime_400, R.color.orange_400, R.color.amber_800, R.color.pink_800,
+        R.color.grey_700, R.color.blue_700, R.color.purple_800};
+
         quoteText.setText(quote);
         byAuthor.setText("-" + author + "-");
+
+        cardView.setBackgroundResource(getRandomQuote(colors));
 
         return quoteView;
     }
@@ -48,6 +56,17 @@ public class QuoteFragment extends Fragment {
 
         return fragment;
 
+    }
+
+    int getRandomQuote(int[] colorArray) {
+        int color;
+        int quoteArrayLen = colorArray.length;
+
+        int randomNum = ThreadLocalRandom.current().nextInt(quoteArrayLen);
+
+        color = colorArray[randomNum];
+
+        return color;
     }
 }
 
